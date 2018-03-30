@@ -51,10 +51,10 @@ func checkArgs(c *cli.Context) error {
     WallColor: "#000000",
   }
 
-  args.CellHeightX = args.PixelsX / args.Width
-  args.CellHeightY = args.PixelsY / args.Height
+  args.CellSizeX = args.PixelsX / args.Width
+  args.CellSizeY = args.PixelsY / args.Height
 
-  if(args.CellHeightX * args.Width != args.PixelsX || args.CellHeightY * args.Height != args.PixelsY) {
+  if(args.CellSizeX * args.Width != args.PixelsX || args.CellSizeY * args.Height != args.PixelsY) {
     return errors.New("Actual dimensions must be positive multiples of cell dimensions")
    }
 

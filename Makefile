@@ -32,4 +32,5 @@ test: build
 
 	@echo "";
 	### should succeed
-	./main.out --cd 50x50 --ad 800x800
+	./main.out --cd 50x50 --ad 800x800 > ~/Desktop/out.svg
+	open ~/Desktop/out.svg

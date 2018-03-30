@@ -42,7 +42,14 @@ func checkArgs(c *cli.Context) error {
     dims[i] = value
   }
 
-  args := generator.Args{ Width: dims[0], Height: dims[1], PixelsX: dims[2], PixelsY: dims[3] }
+  args := generator.Args{
+    Width: dims[0],
+    Height: dims[1],
+    PixelsX: dims[2],
+    PixelsY: dims[3],
+    PathColor: "#FFFFFF",
+    WallColor: "#000000",
+  }
 
   args.CellHeightX = args.PixelsX / args.Width
   args.CellHeightY = args.PixelsY / args.Height

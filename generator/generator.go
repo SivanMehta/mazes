@@ -12,6 +12,8 @@ type Args struct {
   PixelsY int
   CellHeightX int
   CellHeightY int
+  PathColor string
+  WallColor string
 }
 
 func GenerateMaze(args *Args) {

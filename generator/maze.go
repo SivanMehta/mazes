@@ -2,7 +2,7 @@ package generator
 
 import (
   "log"
-  // "math/rand"
+  "math/rand"
   "strconv"
 
   "github.com/ajstarks/svgo"
@@ -39,7 +39,40 @@ func (this *Maze) Print() {
 }
 
 func drawCells(args *Args, canvas *svg.SVG) {
-  // uses a maze algorithm to generate a solveable maze
+  width := args.Width
+  height := args.Height
+  cells := randomCells(args)
+  for row := 0; row < height; row ++ {
+    for col := 0; col < width; col ++ {
+      color := "fill:"
+      if cells[row * width + col] {
+        color += "black"
+      } else {
+        color += "white"
+      }
+      canvas.Rect(
+        col * args.CellSizeX,
+        row * args.CellSizeY,
+        args.CellSizeX,
+        args.CellSizeY,
+        color,
+      )
+    }
+  }
+}
+
+func randomCells(args *Args) []bool {
+  width := args.Width
+  height := args.Height
+  cells := make([]bool, width * height)
+
+  for row := 0; row < height; row ++ {
+    for col := 0; col < width; col ++ {
+      cells[row * width + col] = rand.Intn(2) > 0
+    }
+  }
+
+  return cells
 }
 
 var (
@@ -54,9 +87,12 @@ func generateCells(args *Args) []int {
   width := args.Width
   path := newStack(height * width)
   cells := make([]int, height * width)
+  maze := Maze{ Maze: cells, Height: height, Width: width}
   directions := [4][2]int{ up, down, left, right }
 
   path.Push(Cell{ X: width / 2, Y: height / 2})
+
+  log.Println(maze, directions)
 
   return cells
 }

@@ -1,10 +1,10 @@
 package main
 
 import (
-  "log"
   "strings"
   "strconv"
 
+  "log"
   "os"
   "errors"
 
@@ -15,13 +15,16 @@ import (
 var (
   cellDimensions string
   actualDimensions string
-  args [4]int
 )
 
+/**
+ * Validate the arguments, generating the args along the way
+ * @type {[type]}
+ */
 func checkArgs(c *cli.Context) error {
   cd := strings.Split(cellDimensions, "x")
   ad := strings.Split(actualDimensions, "x")
-
+  var dims [4]int
   if(len(cd) != 2) {
     return errors.New("You must provide 2 cell dimensions")
   }
@@ -33,21 +36,30 @@ func checkArgs(c *cli.Context) error {
   allDims := append(cd, ad...)
   for i, dim := range allDims {
     value, err := strconv.Atoi(dim)
-    if err != nil {
-      return errors.New("Invalid dimensions")
+    if err != nil || value < 1 {
+      return errors.New("Dimension must be positive numbers")
     }
-    args[i] = value
+    dims[i] = value
   }
 
+  args := generator.Args{ Width: dims[0], Height: dims[1], PixelsX: dims[2], PixelsY: dims[3] }
+
+  args.CellHeightX = args.PixelsX / args.Width
+  args.CellHeightY = args.PixelsY / args.Height
+
+  if(args.CellHeightX * args.Width != args.PixelsX || args.CellHeightY * args.Height != args.PixelsY) {
+    return errors.New("Actual dimensions must be positive multiples of cell dimensions")
+   }
+
   // all is good and parse, let's fire off the generation
-  generator.GenerateMaze(args)
+  generator.GenerateMaze(&args)
   return nil
 }
 
 func main() {
   app := cli.NewApp()
   app.Name = "mazes"
-  app.Usage = "maze a maze in SVG"
+  app.Usage = "create amazing mazes in SVG"
 
   app.Flags = []cli.Flag {
     cli.StringFlag{

@@ -15,13 +15,21 @@ test: build
 	-./main.out --cd 1x2 --ad 3
 
 	@echo "";
-	### should crash with: Invalid dimensions
+	### should crash with: Dimension must be postive numbers
 	-./main.out --cd ax2 --ad 3x2
 
 	@echo "";
-	### should crash with: Invalid dimensions
+	### should crash with: Dimension must be postive numbers
 	-./main.out --cd ax2 --ad 3x2
+
+	@echo "";
+	### should crash with: Dimension must be postive numbers
+	-./main.out --cd -1x2 --ad 3x2
+
+	@echo "";
+	### should crash with: Actual dimensions must be positive multiples of cell dimensions
+	-./main.out --cd 1x2 --ad 3x5
 
 	@echo "";
 	### should succeed
-	./main.out
+	./main.out --cd 50x50 --ad 800x800

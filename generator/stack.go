@@ -1,8 +1,13 @@
-package maze
+package generator
 
 import (
   "log"
 )
+
+type Cell struct {
+  X int
+  Y int
+}
 
 type stack struct {
  cells []Cell
@@ -38,7 +43,7 @@ func (this *stack) Print() {
   log.Println(this.cells[len(this.cells) - this.size:])
 }
 
-func NewStack(size int) *stack {
+func newStack(size int) *stack {
     cells := make([]Cell, size)
     return &stack{ cells: cells, size: 0 }  // enforce the default value here
 }

@@ -32,5 +32,4 @@ test: build
 
 	@echo "";
 	### should succeed
-	./main.out --cd 100x100 --ad 1000x1000 > ./example.svg
-	open ./example.svg
+	./main.out --cd 10x10 --ad 200x200 > ./example.svg

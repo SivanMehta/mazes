@@ -30,6 +30,7 @@ test: build
 	### should crash with: Actual dimensions must be positive multiples of cell dimensions
 	-./main.out --cd 1x2 --ad 3x5
 
+example: build
 	@echo "";
 	### should succeed
-	./main.out --cd 10x10 --ad 200x200 > ./example.svg
+	./main.out --cd 100x100 --ad 1000x1000 > ./example.svg

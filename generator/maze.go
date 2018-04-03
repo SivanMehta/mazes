@@ -44,7 +44,15 @@ func (this *Maze) Print() {
 func drawCells(args *Args, canvas *svg.SVG) {
   width := args.Width
   height := args.Height
-  cells := generateCells(args)
+  var cells []bool
+  switch method := args.Method; method {
+    case "backtracking":
+      cells = backtracking(args)
+    case "random":
+      cells = completelyRandom(args)
+    default:
+      cells = completelyRandom(args)
+  }
   for row := 0; row < height; row ++ {
     for col := 0; col < width; col ++ {
       color := "fill:"
@@ -64,7 +72,7 @@ func drawCells(args *Args, canvas *svg.SVG) {
   }
 }
 
-func randomCells(args *Args) []bool {
+func completelyRandom(args *Args) []bool {
   width := args.Width
   height := args.Height
   cells := make([]bool, width * height)
@@ -85,7 +93,7 @@ var (
   down = [2]int{ 0, 1 }
 )
 
-func generateCells(args *Args) []bool {
+func backtracking(args *Args) []bool {
   height := args.Height
   width := args.Width
   path := newStack(height * width)

@@ -45,6 +45,7 @@ func drawCells(args *Args, canvas *svg.SVG) {
   width := args.Width
   height := args.Height
   var cells []bool
+  // TODO: use a map[string]func
   switch method := args.Method; method {
     case "backtracking":
       cells = backtracking(args)

@@ -12,6 +12,7 @@ type Args struct {
   PixelsY int
   CellSizeX int
   CellSizeY int
+  Method string
   PathColor string
   WallColor string
 }

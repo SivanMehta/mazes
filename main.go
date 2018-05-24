@@ -49,6 +49,7 @@ func checkArgs(c *cli.Context) error {
     PixelsY: dims[3],
     PathColor: "#FFFFFF",
     WallColor: "#000000",
+    Method: "backtracking",
   }
 
   args.CellSizeX = args.PixelsX / args.Width

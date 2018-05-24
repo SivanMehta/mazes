@@ -32,5 +32,4 @@ test: build
 
 example: build
 	@echo "";
-	### should succeed
-	./main.out --cd 100x100 --ad 1000x1000 > ./example.svg
+	./main.out --cd 48x48 --ad 240x240 --alg backtracking > ./example.svg
